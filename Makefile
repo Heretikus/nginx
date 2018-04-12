@@ -16,5 +16,8 @@ kitchen-list:
 kitchen-create:
 	KITCHEN_LOCAL_YAML=$(KITCHEN_LOCAL_YAML) kitchen create
 
-kitchen-converge:
+kitchen-converge: role-under-test
 	KITCHEN_LOCAL_YAML=$(KITCHEN_LOCAL_YAML) kitchen converge
+
+kitchen-verify:
+	KITCHEN_LOCAL_YAML=$(KITCHEN_LOCAL_YAML) kitchen verify
