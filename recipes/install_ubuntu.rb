@@ -54,6 +54,14 @@ file '/etc/nginx/conf.d/default.conf' do
 end
 
 
+node['nginx']['nginx_properties'].each do |a_property|
+  lineinfile '/etc/nginx/nginx.conf' do
+    regexp a_property['regexp']
+    line   a_property['line']
+  end
+end
+
+
   # - name: Nginx | Uncomment server_names_hash_bucket_size
   #   lineinfile: dest=/etc/nginx/nginx.conf regexp="^(\s*)#\s*server_names_hash_bucket_size" line="\1server_names_hash_bucket_size 64;" backrefs=yes
   #   become: yes
@@ -89,7 +97,16 @@ remote_directory "/etc/nginx/snippets" do
   files_mode '0750'
   action :create
   recursive true                                                                      
-end    
+end
+
+
+node['nginx']['nginx_groups'].each do |grp|
+  group grp do
+    action :modify
+    members node['nginx']['nginx_user']
+    append true
+  end
+end
 
 
   # - name: Nginx | Add nginx user to additional groups, if needed

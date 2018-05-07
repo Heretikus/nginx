@@ -21,3 +21,6 @@ kitchen-converge: role-under-test
 
 kitchen-verify:
 	KITCHEN_LOCAL_YAML=$(KITCHEN_LOCAL_YAML) kitchen verify
+
+kitchen-login:
+	KITCHEN_LOCAL_YAML=$(KITCHEN_LOCAL_YAML) kitchen login
